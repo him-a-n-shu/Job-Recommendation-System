@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Recommendation System</title>
+</head>
+
+<body>
+    <h1>Job Recommendation System</h1>
+    <form action="/recommend" method="post">
+        <label for="selection_type">Select Recommendation Type:</label>
+        <select name="selection_type" id="selection_type" onchange="toggleInput(this.value)">
+            <option value="role">Job Role</option>
+            <option value="skills">Skills</option>
+        </select>
+
+        <div id="role_input">
+            <label for="job_role">Job Role:</label>
+            <select name="job_role" id="job_role">
+                {% for job in jobs %}
+                <option value="{{ job }}">{{ job }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div id="skills_input" style="display: none;">
+            <label for="skills">Skills (comma-separated):</label>
+            <input type="text" name="skills" id="skills">
+        </div>
+
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    <script>
+        function toggleInput(value) {
+            if (value === 'skills') {
+                document.getElementById('role_input').style.display = 'none';
+                document.getElementById('skills_input').style.display = 'block';
+            } else {
+                document.getElementById('role_input').style.display = 'block';
+                document.getElementById('skills_input').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+
+</html>
